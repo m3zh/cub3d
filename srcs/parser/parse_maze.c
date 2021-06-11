@@ -1,0 +1,69 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_maze.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/22 16:40:08 by mlazzare          #+#    #+#             */
+/*   Updated: 2021/06/11 07:29:33 by mlazzare         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/cub3d.h"
+
+int	get_startwall(t_map *map, char *l, int y)
+{
+	if (l[y] && l[y] != '1')
+		return (get_error('w', map));
+	map->start_wall = y;
+	return (0);
+}
+
+int	get_endwall(t_map *map, char *l)
+{
+	int	e;
+
+	e = ft_strlen(l) - 1;
+	while (l[e] && l[e] == ' ')
+		e--;
+	if (l[e] != '1')
+		return (get_error('w', map));
+	while (e > map->end_wall)
+	{
+		if (!(l[e] != '1' || l[e] != ' '))
+			return (get_error('w', map));
+		e--;
+	}
+	if (l[e] != '1' && (l[e + 1] != '1' || not_walled(e, map)))
+		return (get_error('w', map));
+	map->end_wall = e;
+	return (0);
+}
+
+int	get_playerpos(t_map *map, int y)
+{
+	if (map->x != -1)
+		return (-1);
+	map->x = map->idx;
+	map->y = y;
+	return (y + 1);
+}
+
+int	get_maze(t_map *map)
+{
+	int	err;
+
+	if (map->idx == 0)
+		err = check_top_wall(map);
+	else
+		err = check_walls(map, map->line);
+	if (map->idx == 1)
+		err = check_if_walled(map, map->line);
+	map->maze[map->idx] = ft_strdup(map->line);
+	map->idx++;
+	map->maze[map->idx] = 0;
+	free(map->trim);
+	map->trim = NULL;
+	return (err);
+}
