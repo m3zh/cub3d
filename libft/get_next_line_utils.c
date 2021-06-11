@@ -21,6 +21,12 @@ void	ft_free(char **line)
 	}
 }
 
+int	ft_return(char **keep, int ret)
+{
+	ft_free(keep);
+	return (ret);
+}
+
 char	*ft_join(char *s1, char *s2)
 {
 	char	*r;
@@ -42,4 +48,17 @@ char	*ft_join(char *s1, char *s2)
 		r[i++] = *s2++;
 	r[i] = '\0';
 	return (r);
+}
+
+int	ft_findchar(const char *s, int c)
+{
+	int		i;
+	char	*ret;
+
+	i = -1;
+	ret = (char *)s;
+	while (ret[++i])
+		if (ret[i] == (char)c)
+			return (i);
+	return (-1);
 }

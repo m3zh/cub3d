@@ -40,7 +40,7 @@ char				**ft_split(char const *s, char c);
 /* get_next_line */
 
 int					get_next_line(int fd, char **line, int err);
-int					ft_find_newline(const char *s, int c);
+int					ft_findchar(const char *s, int c);
 int					ft_fill_line(char **keep, char **line, int fd);
 int					ft_return(char **keep, int ret);
 char				*ft_join(char *s1, char *s2);

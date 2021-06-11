@@ -15,10 +15,10 @@
 static int	wrong_line_setup(t_map *map)
 {
 	if (!map->line)
-		return (get_error('l', map));
+		return (get_error('l'));
 	map->trim = trimspaces(map->line);
 	if (!map->trim)
-		return (get_error('l', map));
+		return (get_error('l'));
 	return (0);
 }
 
@@ -45,16 +45,16 @@ static int	fill_map(t_map *map)
 	else if (BNS && map->trim[0] == 'S' && map->trim[1] != 'O' && !map->s)
 		return (get_sprite_path(map, map->trim));
 	else if (map->trim[0] == 'C' && !map->c_check)
-		return (get_comma_value(map, map->c, map->line));
+		return (get_rgb_value(map, map->c, map->line));
 	else if (map->trim[0] == 'F' && !map->f_check)
-		return (get_comma_value(map, map->f, map->line));
+		return (get_rgb_value(map, map->f, map->line));
 	else if (map_checked(map))
 		return (get_maze(map));
 	else
 	{
 		free(map->trim);
 		map->trim = NULL;
-		return (get_error('x', map));
+		return (get_error('x'));
 	}
 	return (0);
 }
@@ -67,25 +67,23 @@ int	read_map(t_map *map, char **av)
 	err = 0;
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
-		get_error('o', map);
+		get_error('o');
 	while (fd && (get_next_line(fd, &map->line, err) > 0))
 	{
 		if (!err && ft_strcmp(map->line, ""))
 			err = fill_map(map);
 		if (!ft_strcmp(map->line, "") && map->idx > 0)
-			err = get_error('m', map);
+			err = get_error('m');
 		free(map->line);
 		map->line = NULL;
 	}
 	if (err)
 		return (-1);
 	if ((!BNS && map->complete != 6) || (BNS && map->complete != 7))
-		return (-get_error('i', map));
-	else if (map->x < 0)
-		return (-get_error('p', map));
+		return (-get_error('i'));
+	if (map->x < 0)
+		return (-get_error('p'));
 	if (check_bottom_wall(map, map->maze[map->idx - 1]))
-		return (-1);
-	if (!err)
-		return (close(fd));
-	return (-1);
+		return (-get_error('w'));
+	return (close(fd));
 }

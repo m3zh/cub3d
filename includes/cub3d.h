@@ -60,9 +60,9 @@
 int		read_map(t_map *map, char **av);
 int		get_path(t_map *map, char *line);
 int		get_sprite_path(t_map *map, char *line);
-int		get_comma_value(t_map *map, int *s, char *line);
+int		get_rgb_value(t_map *map, int *s, char *line);
 int		get_maze(t_map *map);
-int		get_error(char c, t_map *map);
+int		get_error(char c);
 void	get_direction(t_map *map, char *li, int start);
 int		get_startwall(t_map *map, char *l, int y);
 int		get_endwall(t_map *map, char *l);
@@ -81,6 +81,7 @@ int		check_bottom_wall(t_map *map, char *l);
 int		check_side_walls(t_map *map, char *l);
 int		check_if_walled(t_map *map, char *l);
 void	update_cf(t_map *map, char c);
+void	update_map(t_map *map);
 char	*trimspaces(char *s);
 
 /*
@@ -113,5 +114,6 @@ void	draw_spriteline(t_game *game, int i, int s);
 void	free_map(t_map *map);
 int		free_window(t_game *game);
 void	free_game(t_game *game);
+int		free_dataimg(t_game *game);
 
 #	endif

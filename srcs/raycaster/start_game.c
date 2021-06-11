@@ -55,12 +55,12 @@ static int	game_loop(t_game *game)
 	return (-1);
 }
 
-static void	set_window(t_game *game, t_map *map)
+static int	set_window(t_game *game)
 {
 	game->win = mlx_new_window(game->mlx, game->winW,
 			game->winH, "raycasting");
 	if (!game->win)
-		get_error('y', map);
+		return (free_window(game));
 	game->img.img = mlx_new_image(game->mlx, game->winW,
 			game->winH);
 	game->img.addr = (int *)mlx_get_data_addr(game->img.img,
@@ -74,7 +74,8 @@ static void	set_window(t_game *game, t_map *map)
 	game->img.counter = 0;
 	if (!game->img.img || !game->img.img2
 		|| !game->img.addr || !game->img.addr2)
-		get_error('y', map);
+		return (free_dataimg(game));
+	return (1);
 }
 
 int	start_game(t_map map)
@@ -87,10 +88,12 @@ int	start_game(t_map map)
 		return (0);
 	game.mlx = mlx_init();
 	if (!game.mlx)
-		get_error('y', &map);
-	if (!texture_to_img(&game))
+	{
+		get_error('y');
 		return (0);
-	set_window(&game, &map);
+	}
+	if (!texture_to_img(&game) || !set_window(&game))
+		return (0);
 	mlx_hook(game.win, 33, 1L << 17, x_exit, &game);
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
 	mlx_loop_hook(game.mlx, game_loop, &game);

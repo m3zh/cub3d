@@ -1,0 +1,15 @@
+R 581 345
+
+NO ./assets/north.xpm
+SO ./assets/south.xpm
+EA ./assets/east.xpm
+WE ./assets/west.xpm
+
+S ./assets/sprite.xpm
+
+F 5, 4, 5
+C 5, 5, 5
+
+000
+0N0
+000

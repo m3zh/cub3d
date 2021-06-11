@@ -41,7 +41,11 @@ static void	check_extension(char *path, t_map *map)
 
 	l = ft_strlen(path);
 	if (ft_strcmp(&path[l - 4], ".cub"))
-		get_error('e', map);
+	{
+		get_error('e');
+		free_map(map);
+		exit(0);
+	}
 }
 
 static int	boot_cub3d(char **av)
@@ -52,8 +56,8 @@ static int	boot_cub3d(char **av)
 	map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
 		return (0);
-	check_extension(av[1], map);
 	initialise_map(map);
+	check_extension(av[1], map);
 	game = read_map(map, av);
 	if (game < 0)
 	{

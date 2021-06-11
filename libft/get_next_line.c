@@ -12,22 +12,17 @@
 
 #include "libft.h"
 
-int	ft_return(char **keep, int ret)
+static int	empty_line(char **line)
 {
-	ft_free(keep);
-	return (ret);
+	*line = ft_strdup("");
+	if (!*line)
+		return (-1);
+	return (0);
 }
 
-int	ft_find_newline(const char *s, int c)
+static int	file_error(char **keep, int fd)
 {
-	int		i;
-	char	*ret;
-
-	i = -1;
-	ret = (char *)s;
-	while (ret[++i])
-		if (ret[i] == (char)c)
-			return (i);
+	free(keep[fd]);
 	return (-1);
 }
 
@@ -36,7 +31,7 @@ int	ft_fill_line(char **keep, char **line, int fd)
 	char	*tmp;
 	int		idx;
 
-	idx = ft_find_newline(keep[fd], '\n');
+	idx = ft_findchar(keep[fd], '\n');
 	if (idx != -1 && keep[fd][idx] == '\n')
 	{
 		*line = ft_substr(keep[fd], 0, idx);
@@ -94,31 +89,24 @@ int	get_next_line(int fd, char **line, int err)
 	static char	*keep[FOPEN_MAX];
 
 	if (err)
-	{
-		free(keep[fd]);
-		return (-1);
-	}
+		return (file_error(keep, fd));
 	buf = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (BUFFER_SIZE <= 0 || fd < 0 || fd > FOPEN_MAX || !line || !buf)
 		return (ft_return(keep, -1));
-	while ((input = read(fd, buf, BUFFER_SIZE)) > 0)
+	input = read(fd, buf, BUFFER_SIZE);
+	while (input > 0)
 	{
 		buf[input] = '\0';
 		keep[fd] = ft_update_static(keep, buf, fd);
 		if (!keep[fd])
 			return (-1);
-		if (ft_find_newline(keep[fd], '\n') > -1)
+		if (ft_findchar(keep[fd], '\n') > -1)
 			break ;
 	}
 	free(buf);
 	if (input < 0)
 		return (-1);
 	else if (!input && !keep[fd])
-	{
-		*line = ft_strdup("");
-		if (!*line)
-			return (-1);
-		return (0);
-	}
+		return (empty_line(line));
 	return (ft_fill_line(keep, line, fd));
 }

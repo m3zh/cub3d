@@ -39,8 +39,8 @@ SRCS =  \
 		./srcs/main.c
 
 SRCB = \
-		./srcs/raycaster/sprites.c \
-		./srcs/raycaster/2dmap.c
+		./srcs/raycaster/sprites_bonus.c \
+		./srcs/raycaster/2dmap_bonus.c
 
 NBNS = -D BNS=0
 BNS = -D BNS=1

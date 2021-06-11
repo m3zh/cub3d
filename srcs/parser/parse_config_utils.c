@@ -32,3 +32,10 @@ int	skip_space(char *l, int i)
 		i++;
 	return (i);
 }
+
+void	update_map(t_map *map)
+{
+	map->complete++;
+	free(map->trim);
+	map->trim = NULL;
+}

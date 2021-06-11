@@ -42,7 +42,7 @@ int	check_if_walled(t_map *map, char *l)
 	while (l[++i])
 	{
 		if (l[i] == '0' && map->maze[0][i] != '1')
-			return (get_error('w', map));
+			return (get_error('w'));
 	}
 	return (0);
 }

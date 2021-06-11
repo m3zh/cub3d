@@ -38,6 +38,16 @@ void	free_map(t_map *map)
 	free(map);
 }
 
+static void	free_bonus(t_game *game)
+{
+	if (game->spritex.img)
+		mlx_destroy_image(game->mlx, game->spritex.img);
+	if (game->zbuf)
+		free(game->zbuf);
+	if (game->sprites)
+		free(game->sprites);
+}
+
 void	free_game(t_game *game)
 {
 	int	i;
@@ -74,14 +84,30 @@ int	free_window(t_game *game)
 		if (game->tex[i].img)
 			mlx_destroy_image(game->mlx, game->tex[i].img);
 	if (BNS)
-	{
-		if (game->spritex.img)
-			mlx_destroy_image(game->mlx, game->spritex.img);
-		if (game->zbuf)
-			free(game->zbuf);
-		if (game->sprites)
-			free(game->sprites);
-	}
+		free_bonus(game);
+	mlx_destroy_display(game->mlx);
+	free(game->mlx);
+	return (0);
+}
+
+int	free_dataimg(t_game *game)
+{
+	int	i;
+
+	i = -1;
+	printf("Image data failed to initialise\nRetry");
+	while (++i < 4)
+		if (game->tex[i].img)
+			mlx_destroy_image(game->mlx, game->tex[i].img);
+	if (BNS)
+		free_bonus(game);
+	if (game->img.img)
+		mlx_destroy_image(game->mlx, game->img.img);
+	if (game->img.img2)
+		mlx_destroy_image(game->mlx, game->img.img2);
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	game->win = 0;
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
 	return (0);

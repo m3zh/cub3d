@@ -12,7 +12,7 @@
 
 #include "../../includes/cub3d.h"
 
-int	get_error(char c, t_map *map)
+int	get_error(char c)
 {
 	if (c == 'r' || c == 't')
 		printf("Invalid file path\nRetry\n");
@@ -36,6 +36,5 @@ int	get_error(char c, t_map *map)
 		printf("An error occurred when opening the file\nRetry\n");
 	else if (c == 'i')
 		printf("Map file empty\nRetry\n");
-	(void)map;
 	return (1);
 }
