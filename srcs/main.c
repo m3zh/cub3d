@@ -73,7 +73,7 @@ static int	boot_cub3d(char **av)
 int	main(int ac, char **av)
 
 {
-	if (ac < 2 || ac > 3)
+	if (ac != 2)
 		printf("Invalid number of arguments.\nRetry.");
 	else
 		boot_cub3d(av);

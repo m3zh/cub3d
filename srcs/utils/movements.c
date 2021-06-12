@@ -39,7 +39,7 @@ void	move_backforwards(t_game *game)
 	if (game->move.forw)
 	{
 		if (game->config.maze[(int)(game->player.posx + game->player.initx
-				* SPEED + 0.1)][(int)game->player.posy] == '0')
+				* SPEED)][(int)game->player.posy] == '0')
 			game->player.posx += game->player.initx * SPEED;
 		if (game->config.maze[(int)(game->player.posx)]
 			[(int)(game->player.posy + game->player.inity * SPEED)] == '0')
@@ -48,7 +48,7 @@ void	move_backforwards(t_game *game)
 	if (game->move.back)
 	{
 		if (game->config.maze[(int)(game->player.posx - game->player.initx
-				* SPEED + 0.1)][(int)(game->player.posy)] == '0')
+				* SPEED)][(int)(game->player.posy)] == '0')
 			game->player.posx -= game->player.initx * SPEED;
 		if (game->config.maze[(int)(game->player.posx)]
 			[(int)(game->player.posy - game->player.inity * SPEED)] == '0')

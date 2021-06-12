@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#	ifndef CUB3D_H
+#ifndef CUB3D_H
 # define CUB3D_H
 
 # include <stdio.h>
@@ -24,7 +24,10 @@
 # include "structs.h"
 # include "../mlx/mlx.h"
 
-# define FILESIZE 1000
+# ifndef BNS
+#  define BNS 0
+# endif
+
 # define PI 3.14159265359
 # define PLAYER 3
 # define OFFSET 0
@@ -35,6 +38,7 @@
 # define SCREENW 1000
 # define SCREENH 800
 # define TILE 20
+# define FILESIZE 1000
 
 # define BLACK -16777216
 # define GRAY 0xC0C0C0
@@ -116,4 +120,4 @@ int		free_window(t_game *game);
 void	free_game(t_game *game);
 int		free_dataimg(t_game *game);
 
-#	endif
+#endif
