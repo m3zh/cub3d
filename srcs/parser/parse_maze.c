@@ -29,13 +29,9 @@ int	get_endwall(t_map *map, char *l)
 		e--;
 	if (l[e] != '1')
 		return (get_error('w'));
-	while (e > map->end_wall)
-	{
-		if (!(l[e] != '1' || l[e] != ' '))
-			return (get_error('w'));
+	while (e > map->end_wall && !ft_ismaze(l[e]))
 		e--;
-	}
-	if (l[e] != '1' && (l[e + 1] != '1' || not_walled(e, map)))
+	if (ft_ismaze(l[e]) && l[e + 1] != '1' && not_walled(e, map))
 		return (get_error('w'));
 	map->end_wall = e;
 	return (0);

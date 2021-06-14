@@ -63,22 +63,25 @@ int	read_map(t_map *map, char **av)
 {
 	int		fd;
 	int		err;
+	int		gnl;
 
 	err = 0;
+	gnl = 1;
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
 		get_error('o');
-	while (fd && (get_next_line(fd, &map->line, err) > 0))
+	while (fd && gnl)
 	{
-		if (!err && ft_strcmp(map->line, ""))
+		gnl = get_next_line(fd, &map->line, err);
+		if (!err && map->line && ft_strcmp(map->line, ""))
 			err = fill_map(map);
-		if (!ft_strcmp(map->line, "") && map->idx > 0)
-			err = get_error('m');
 		free(map->line);
 		map->line = NULL;
 	}
 	if (err)
 		return (-1);
+	if (!BNS && map->sprites > 0)
+		return (-get_error('m'));
 	if ((!BNS && map->complete != 6) || (BNS && map->complete != 7))
 		return (-get_error('i'));
 	if (map->x < 0)

@@ -39,23 +39,17 @@ char	*trimspaces(char *s)
 
 int	ft_isplayerpos(char c)
 {
-	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
-		return (1);
-	return (0);
+	return (c == 'N' || c == 'S' || c == 'W' || c == 'E');
 }
 
 int	ft_ismaze(char c)
 {
-	if (c == '0' || c == '2')
-		return (1);
-	return (0);
+	return (c == '0' || c == '2');
 }
 
 int	ft_isdirection(char *li, int i)
 {
-	if (((li[i] == 'N' || li[i] == 'S') && li[i + 1] == 'O')
+	return (((li[i] == 'N' || li[i] == 'S') && li[i + 1] == 'O')
 		|| (li[i] == 'W' && li[i + 1] == 'E')
-		|| (li[i] == 'E' && li[i + 1] == 'A'))
-		return (1);
-	return (0);
+		|| (li[i] == 'E' && li[i + 1] == 'A'));
 }

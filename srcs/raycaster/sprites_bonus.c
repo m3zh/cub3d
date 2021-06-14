@@ -49,7 +49,7 @@ static void	get_spritepos(t_game *game)
 	while (game->config.maze[++x])
 	{
 		y = -1;
-		while (game->config.maze[++y])
+		while (game->config.maze[x][++y])
 		{
 			if (game->config.maze[x][y] == '2')
 			{
@@ -77,7 +77,7 @@ static void	sort_sprites(t_game *game, int num)
 		j = -1;
 		while (++j < num - 1)
 		{
-			if (game->sprites[j + 1].dist < game->sprites[j].dist)
+			if (game->sprites[j + 1].dist > game->sprites[j].dist)
 			{
 				tmp = game->sprites[j];
 				game->sprites[j] = game->sprites[j + 1];

@@ -85,13 +85,10 @@ int	start_game(t_map map)
 
 	g = init_game(&game, map);
 	if (!g)
-		return (0);
+		return (get_error('y') - 1);
 	game.mlx = mlx_init();
 	if (!game.mlx)
-	{
-		get_error('y');
-		return (0);
-	}
+		return (get_error('y') - 1);
 	if (!texture_to_img(&game) || !set_window(&game))
 		return (0);
 	mlx_hook(game.win, 33, 1L << 17, x_exit, &game);

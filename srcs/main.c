@@ -61,7 +61,7 @@ static int	boot_cub3d(char **av)
 	game = read_map(map, av);
 	if (game < 0)
 	{
-		printf("File failed to open.\n");
+		printf("An error occured while reading the map.\n");
 		free_map(map);
 		return (0);
 	}

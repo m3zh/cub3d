@@ -23,7 +23,7 @@ static int	empty_line(char **line)
 static int	file_error(char **keep, int fd)
 {
 	free(keep[fd]);
-	return (-1);
+	return (0);
 }
 
 int	ft_fill_line(char **keep, char **line, int fd)
@@ -102,6 +102,7 @@ int	get_next_line(int fd, char **line, int err)
 			return (-1);
 		if (ft_findchar(keep[fd], '\n') > -1)
 			break ;
+		input = read(fd, buf, BUFFER_SIZE);
 	}
 	free(buf);
 	if (input < 0)

@@ -43,17 +43,16 @@ int	check_walls(t_map *map, char *l)
 		y++;
 	if (get_startwall(map, l, y))
 		return (1);
-	while (l[y] && l[y] == '1')
-		y++;
 	while (l[y])
 	{
-		y = check_maze(map, l, y);
-		if (ft_isplayerpos(l[y]))
+		if (check_maze(map, l, y))
+			y++;
+		else if (ft_isplayerpos(l[y]))
 			y = get_playerpos(map, y);
-		else if (l[y] == ' ' && l[y - 1] == '1')
+		else if (l[y] == ' ')
 			y = check_spaces(y, map, l);
 		else if (l[y])
-			y = -1;
+			return (get_error('w'));
 		if (y == -1)
 			return (get_error('w'));
 	}

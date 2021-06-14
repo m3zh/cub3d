@@ -37,7 +37,7 @@
 # define FOV 1
 # define SCREENW 1000
 # define SCREENH 800
-# define TILE 20
+# define TILE 10
 # define FILESIZE 1000
 
 # define BLACK -16777216
