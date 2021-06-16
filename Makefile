@@ -14,7 +14,7 @@ NAME = cub3d
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-LIB = -lmlx -lXext -lX11 -lbsd -L./libft -lft -lm 
+LIB = -L./mlx -lmlx -lXext -lX11 -lbsd -L./libft -lft -lm 
 
 HEADER = includes/cub3d.h \
 

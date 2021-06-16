@@ -1,11 +1,9 @@
-R 581 345
+NO ./textures/north.xpm
+SO ./textures/south.xpm
+EA ./textures/east.xpm
+WE ./textures/west.xpm
 
-NO ./assets/north.xpm
-SO ./assets/south.xpm
-EA ./assets/east.xpm
-WE ./assets/west.xpm
-
-S ./assets/sprite.xpm
+S ./textures/sprite.xpm
 
 F 5, 4, 5
 C 5, 5, 5

@@ -1,7 +1,7 @@
 F 20, 50, 70
 C 150, 154, 150
 
-NO  ./txtures/north.xpm
+NO  ./textures/north.xpm
 SO ./textures/south.xpm
 WE ./textures/west.xpm
 EA ./textures/east.xpm

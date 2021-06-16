@@ -12,6 +12,21 @@
 
 #include "../../includes/cub3d.h"
 
+static int	check_map(t_map *map, int err)
+{
+	if (err)
+		return (-1);
+	if (!BNS && map->sprites > 0)
+		return (-get_error('m'));
+	if ((!BNS && map->complete != 6) || (BNS && map->complete != 7))
+		return (-get_error('i'));
+	if (map->x < 0)
+		return (-get_error('p'));
+	if (check_bottom_wall(map, map->maze[map->idx - 1]))
+		return (-get_error('w'));
+	return (1);
+}
+
 static int	wrong_line_setup(t_map *map)
 {
 	if (!map->line)
@@ -69,7 +84,7 @@ int	read_map(t_map *map, char **av)
 	gnl = 1;
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
-		get_error('o');
+		return (-get_error('o'));
 	while (fd && gnl)
 	{
 		gnl = get_next_line(fd, &map->line, err);
@@ -78,15 +93,7 @@ int	read_map(t_map *map, char **av)
 		free(map->line);
 		map->line = NULL;
 	}
-	if (err)
+	if (close(fd) < 0)
 		return (-1);
-	if (!BNS && map->sprites > 0)
-		return (-get_error('m'));
-	if ((!BNS && map->complete != 6) || (BNS && map->complete != 7))
-		return (-get_error('i'));
-	if (map->x < 0)
-		return (-get_error('p'));
-	if (check_bottom_wall(map, map->maze[map->idx - 1]))
-		return (-get_error('w'));
-	return (close(fd));
+	return (check_map(map, err));
 }

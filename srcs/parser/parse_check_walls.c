@@ -75,10 +75,10 @@ int	check_bottom_wall(t_map *map, char *l)
 	if (l[e] && l[e] == '1')
 		map->end_wall = e;
 	else
-		return (get_error('m'));
+		return (1);
 	while ((l[i] == '1' || l[i] == ' ') && i < e)
 		i++;
 	if (i != e)
-		return (get_error('m'));
+		return (1);
 	return (0);
 }

@@ -22,37 +22,18 @@ static int	empty_line(char **line)
 
 static int	file_error(char **keep, int fd)
 {
-	free(keep[fd]);
+	if (keep[fd])
+		free(keep[fd]);
 	return (0);
 }
 
-int	ft_fill_line(char **keep, char **line, int fd)
+static int	ft_eof(int input, char **keep, char **line, int fd)
 {
-	char	*tmp;
-	int		idx;
-
-	idx = ft_findchar(keep[fd], '\n');
-	if (idx != -1 && keep[fd][idx] == '\n')
-	{
-		*line = ft_substr(keep[fd], 0, idx);
-		if (!*line)
-			return (ft_return(keep, -1));
-		tmp = ft_substr(keep[fd], idx + 1, ft_strlen(keep[fd]));
-		if (!tmp)
-			return (ft_return(keep, -1));
-		ft_free(&keep[fd]);
-		keep[fd] = ft_strdup(tmp);
-		free(tmp);
-	}
-	else
-	{
-		*line = ft_strdup(keep[fd]);
-		if (!*line)
-			return (ft_return(keep, -1));
-		ft_free(&keep[fd]);
-		return (0);
-	}
-	return (1);
+	if (input < 0)
+		return (-1);
+	else if (!input && !keep[fd])
+		return (empty_line(line));
+	return (0);
 }
 
 char	*ft_update_static(char **keep, char *buf, int fd)
@@ -100,14 +81,12 @@ int	get_next_line(int fd, char **line, int err)
 		keep[fd] = ft_update_static(keep, buf, fd);
 		if (!keep[fd])
 			return (-1);
-		if (ft_findchar(keep[fd], '\n') > -1)
+		if (ft_strchr(keep[fd], '\n') > -1)
 			break ;
 		input = read(fd, buf, BUFFER_SIZE);
 	}
 	free(buf);
-	if (input < 0)
-		return (-1);
-	else if (!input && !keep[fd])
-		return (empty_line(line));
+	if (input < 0 || (!input && !keep[fd]))
+		return (ft_eof(input, keep, line, fd));
 	return (ft_fill_line(keep, line, fd));
 }

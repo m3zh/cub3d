@@ -22,7 +22,7 @@ SRC	=	ft_strlen.c				\
 		ft_isspace.c			\
 		ft_strdup.c				\
 		ft_substr.c				\
-		ft_strjoin.c			\
+		ft_strchr.c			\
 		get_next_line.c				\
 		get_next_line_utils.c		\
 

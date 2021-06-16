@@ -23,7 +23,8 @@ void	ft_free(char **line)
 
 int	ft_return(char **keep, int ret)
 {
-	ft_free(keep);
+	if (keep)
+		ft_free(keep);
 	return (ret);
 }
 
@@ -50,15 +51,36 @@ char	*ft_join(char *s1, char *s2)
 	return (r);
 }
 
-int	ft_findchar(const char *s, int c)
+static int	ft_lastline(char **keep, char **line, int fd)
 {
-	int		i;
-	char	*ret;
+	*line = ft_strdup(keep[fd]);
+	if (!*line)
+		return (ft_return(keep, -1));
+	ft_free(&keep[fd]);
+	return (0);
+}
 
-	i = -1;
-	ret = (char *)s;
-	while (ret[++i])
-		if (ret[i] == (char)c)
-			return (i);
-	return (-1);
+int	ft_fill_line(char **keep, char **line, int fd)
+{
+	char	*tmp;
+	int		idx;
+
+	idx = ft_strchr(keep[fd], '\n');
+	if (idx != -1 && keep[fd][idx] == '\n')
+	{
+		*line = ft_substr(keep[fd], 0, idx);
+		if (!*line)
+			return (ft_return(keep, -1));
+		tmp = ft_substr(keep[fd], idx + 1, ft_strlen(keep[fd]));
+		if (!tmp)
+			return (ft_return(keep, -1));
+		ft_free(&keep[fd]);
+		keep[fd] = ft_strdup(tmp);
+		if (!keep[fd])
+			return (ft_return(&tmp, -1));
+		free(tmp);
+	}
+	else
+		return (ft_lastline(keep, line, fd));
+	return (1);
 }
