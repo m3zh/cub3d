@@ -28,7 +28,7 @@ void	update_cf(t_map *map, char c)
 
 int	skip_space(char *l, int i)
 {
-	while (l[i] && l[i] == ' ')
+	while (l[i] && ft_isspace(l[i]))
 		i++;
 	return (i);
 }

@@ -40,7 +40,9 @@ static void	draw_player(t_game *game)
 		{
 			pixel = game->winW * (int)(dy + game->player.posx * TILE)
 				+ (int)(dx + game->player.posy * TILE);
-			game->img.addr[pixel] = 0xFFFF00;
+			if (!(game->img.addr[pixel] == GRAY || game->img.addr[pixel] == CYAN
+					|| !game->img.addr[pixel]))
+				game->img.addr[pixel] = 0xFFFF00;
 		}
 	}	
 }
@@ -57,6 +59,7 @@ static void	draw_ray(t_game *game)
 	py = (int)TILE * game->player.posx + game->player.initx;
 	dx = 1;
 	dy = 1;
+	pixel = 0;
 	while (1)
 	{
 		dx += game->player.planex;

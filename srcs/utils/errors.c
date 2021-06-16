@@ -15,26 +15,26 @@
 int	get_error(char c)
 {
 	if (c == 'r' || c == 't')
-		printf("Invalid file path\nRetry\n");
+		printf("Error\nInvalid file path\nRetry\n");
 	else if (c == 'l')
-		printf("Error in reading config line\nRetry\n");
+		printf("Error\nError in reading config line\nRetry\n");
 	else if (c == 'g')
-		printf("Invalid rgba configuration\nRetry\n");
+		printf("Error\nInvalid rgba configuration\nRetry\n");
 	else if (c == 'd')
-		printf("Invalid direction configuration\nRetry\n");
+		printf("Error\nInvalid direction configuration\nRetry\n");
 	else if (c == 'e')
-		printf("Invalid file extension\nRetry\n");
+		printf("Error\nInvalid file extension\nRetry\n");
 	else if (c == 'x')
-		printf("Invalid value declaration in config\nRetry\n");
+		printf("Error\nInvalid value declaration in config\nRetry\n");
 	else if (c == 'm' || c == 'w')
-		printf("Invalid map\nRetry\n");
+		printf("Error\nInvalid map\nRetry\n");
 	else if (c == 'p')
-		printf("Invalid player position\nRetry\n");
+		printf("Error\nInvalid player position\nRetry\n");
 	else if (c == 'y')
-		printf("An error occurred in mlx library\nRetry\n");
+		printf("Error\nAn error occurred in mlx library\nRetry\n");
 	else if (c == 'o')
-		printf("An error occurred when opening the file\nRetry\n");
+		printf("Error\nAn error occurred when opening the file\nRetry\n");
 	else if (c == 'i')
-		printf("Map file empty\nRetry\n");
+		printf("Error\nMap file empty\nRetry\n");
 	return (1);
 }
