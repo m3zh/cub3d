@@ -52,3 +52,11 @@ int	check_maze(t_map *map, char *l, int y)
 		map->sprites++;
 	return (l[y] == '0' || l[y] == '2' || l[y] == '1');
 }
+
+int	map_checked(t_map *map)
+{
+	if ((!BNS && map->complete == 6)
+		|| (BNS && map->complete == 7))
+		return (1);
+	return (0);
+}

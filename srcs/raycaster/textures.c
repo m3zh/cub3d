@@ -73,7 +73,7 @@ static int	sprite_texture(t_game *game)
 int	texture_to_img(t_game *game)
 {
 	int		j;
-	char	*dir[4];
+	char	*dir[5];
 
 	j = -1;
 	dir[0] = game->config.no;

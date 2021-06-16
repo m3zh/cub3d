@@ -12,7 +12,7 @@
 
 #include "../../includes/cub3d.h"
 
-static int	check_map(t_map *map, int err)
+static int	check_map(t_map *map, int err, int space)
 {
 	if (err)
 		return (-1);
@@ -22,7 +22,7 @@ static int	check_map(t_map *map, int err)
 		return (-get_error('i'));
 	if (map->x < 0)
 		return (-get_error('p'));
-	if (check_bottom_wall(map, map->maze[map->idx - 1]))
+	if (!space && check_bottom_wall(map, map->maze[map->idx - 1]))
 		return (-get_error('w'));
 	return (1);
 }
@@ -34,14 +34,6 @@ static int	wrong_line_setup(t_map *map)
 	map->trim = trimspaces(map->line);
 	if (!map->trim)
 		return (get_error('l'));
-	return (0);
-}
-
-static int	map_checked(t_map *map)
-{
-	if ((!BNS && map->complete == 6)
-		|| (BNS && map->complete == 7))
-		return (1);
 	return (0);
 }
 
@@ -74,26 +66,50 @@ static int	fill_map(t_map *map)
 	return (0);
 }
 
+static int check_lastline(t_map *map, int space)
+{
+	if (!space && check_bottom_wall(map, map->maze[map->idx - 1]))
+		return (get_error('w'));
+	map->maze[map->idx] = ft_strdup("");
+	if (!map->maze[map->idx])
+		return (1);
+	map->idx++;
+	map->maze[map->idx] = 0;
+	return (0);
+}
+
 int	read_map(t_map *map, char **av)
 {
 	int		fd;
 	int		err;
 	int		gnl;
+	int		space;
 
 	err = 0;
 	gnl = 1;
+	space = 0;
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
 		return (-get_error('o'));
 	while (fd && gnl)
 	{
 		gnl = get_next_line(fd, &map->line, err);
-		if (!err && map->line && ft_strcmp(map->line, ""))
+		if (!err && space && !ft_strcmp(map->line, ""))
+			err = check_lastline(map, space);
+		else if (!err && map->line && ft_strcmp(map->line, ""))
+		{
 			err = fill_map(map);
+			space = 0;
+		}
+		else if (!err && gnl && map->line && map->idx > 0 && !ft_strcmp(map->line, ""))
+		{
+			err = check_lastline(map, space);
+			space = 1;
+		}	
 		free(map->line);
 		map->line = NULL;
 	}
 	if (close(fd) < 0)
 		return (-1);
-	return (check_map(map, err));
+	return (check_map(map, err, space));
 }
