@@ -31,6 +31,8 @@ int	check_top_wall(t_map *map)
 	map->end_wall = e;
 	while ((map->line[i] == '1' || map->line[i] == ' ') && i < e)
 		i++;
+	if (i != e)
+		return (get_error('m'));
 	return (0);
 }
 
