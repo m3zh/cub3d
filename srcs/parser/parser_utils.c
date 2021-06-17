@@ -53,3 +53,11 @@ int	ft_isdirection(char *li, int i)
 		|| (li[i] == 'W' && li[i + 1] == 'E')
 		|| (li[i] == 'E' && li[i + 1] == 'A'));
 }
+
+int	check_line(int err, int space, t_map *map)
+{
+	err = fill_map(map);
+	if (!err && space)
+		err = check_top_wall(map);
+	return (err);
+}

@@ -12,6 +12,22 @@
 
 #include "../../includes/cub3d.h"
 
+static int	check_edge(int i, int e, t_map *map, int l)
+{
+	while (i < (int)ft_strlen(map->maze[map->idx - l]))
+	{
+		if (ft_ismaze(map->maze[map->idx - l][i]))
+		{
+			if (l == 1)
+				return (get_error('w'));
+			return (1);
+		}			
+		i++;
+	}
+	map->end_wall = e;
+	return (0);
+}
+
 int	check_top_wall(t_map *map)
 {
 	int	i;
@@ -47,8 +63,8 @@ int	check_walls(t_map *map, char *l)
 		return (1);
 	while (l[y])
 	{
-		if (check_maze(map, l, y))
-			y++;
+		if (ft_ismaze(l[y]) || l[y] == '1')
+			y = check_maze(map, l, y);
 		else if (ft_isplayerpos(l[y]))
 			y = get_playerpos(map, y);
 		else if (l[y] == ' ')
@@ -58,7 +74,9 @@ int	check_walls(t_map *map, char *l)
 		if (y == -1)
 			return (get_error('w'));
 	}
-	return (get_endwall(map, l));
+	if (get_endwall(map, l))
+		return (1);
+	return (check_edge(y, map->end_wall, map, 1));
 }
 
 int	check_bottom_wall(t_map *map, char *l)
@@ -74,13 +92,27 @@ int	check_bottom_wall(t_map *map, char *l)
 		return (1);
 	while (l[e] && l[e] == ' ')
 		e--;
-	if (l[e] && l[e] == '1')
-		map->end_wall = e;
-	else
+	if (!(l[e] && l[e] == '1'))
 		return (1);
-	while ((l[i] == '1' || l[i] == ' ') && i < e)
+	while (l[i])
+	{
+		if ((l[i] == ' ' && ft_ismaze(map->maze[map->idx - 2][i]))
+			|| (!(l[i] == '1' || l[i] == ' ')))
+			return (1);
 		i++;
-	if (i != e)
-		return (1);
-	return (0);
+	}
+	return (check_edge(i, e, map, 2));
+}
+
+int	check_map(t_map *map, int err)
+{
+	if (err)
+		return (-1);
+	if (!BNS && map->sprites > 0)
+		return (-get_error('m'));
+	if ((!BNS && map->complete != 6) || (BNS && map->complete != 7))
+		return (-get_error('i'));
+	if (map->x < 0)
+		return (-get_error('p'));
+	return (1);
 }

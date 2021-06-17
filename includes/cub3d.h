@@ -84,9 +84,13 @@ int		check_walls(t_map *map, char *l);
 int		check_bottom_wall(t_map *map, char *l);
 int		check_side_walls(t_map *map, char *l);
 int		check_if_walled(t_map *map, char *l);
-int     map_checked(t_map *map);
+int		map_checked(t_map *map);
+int		check_map(t_map *map, int err);
+int		fill_map(t_map *map);
+int		check_line(int err, int space, t_map *map);
 void	update_cf(t_map *map, char c);
 void	update_map(t_map *map);
+void	free_line(t_map *map);
 char	*trimspaces(char *s);
 
 /*

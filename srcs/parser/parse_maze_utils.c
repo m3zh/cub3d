@@ -50,7 +50,9 @@ int	check_maze(t_map *map, char *l, int y)
 {
 	if (l[y] == '2')
 		map->sprites++;
-	return (l[y] == '0' || l[y] == '2' || l[y] == '1');
+	if (ft_ismaze(l[y]) && map->maze[map->idx - 1][y] == ' ')
+		return (-1);
+	return (y + 1);
 }
 
 int	map_checked(t_map *map)
