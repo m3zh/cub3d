@@ -38,3 +38,44 @@ int	get_error(char c)
 		printf("Error\nMap file empty\nRetry\n");
 	return (1);
 }
+
+int	free_line(char *l)
+{
+	if (l)
+		free(l);
+	l = NULL;
+	return (0);
+}
+
+int	check_err(int err, int space, t_map *map)
+{
+	if (!err && !space && check_bottom_wall(map, map->maze[map->idx - 1]))
+		return (get_error('w'));
+	return (err);
+}
+
+void	free_parse(t_map *map)
+{
+	int	i;
+
+	i = -1;
+	if (map->no)
+		free(map->no);
+	if (map->so)
+		free(map->so);
+	if (map->we)
+		free(map->we);
+	if (map->ea)
+		free(map->ea);
+	if (map->s)
+		free(map->s);
+	if (map->trim)
+		free(map->trim);
+	if (map->line)
+		free(map->line);
+	while (map->maze && map->maze[++i])
+		free(map->maze[i]);
+	if (map->maze)
+		free(map->maze);
+	free(map);
+}

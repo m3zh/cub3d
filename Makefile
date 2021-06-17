@@ -16,7 +16,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 LIB = -L./mlx -lmlx -lXext -lX11 -lbsd -L./libft -lft -lm 
 
-HEADER = includes/cub3d.h \
+HEADER = -I./includes \
 
 SRCS =  \
 	    ./srcs/parser/parser.c \

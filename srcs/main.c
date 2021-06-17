@@ -62,7 +62,7 @@ static int	boot_cub3d(char **av)
 	if (game < 0)
 	{
 		printf("An error occured while reading the map.\n");
-		free_map(map);
+		free_parse(map);
 		return (0);
 	}
 	start_game(*map);

@@ -88,9 +88,11 @@ int		map_checked(t_map *map);
 int		check_map(t_map *map, int err);
 int		fill_map(t_map *map);
 int		check_line(int err, int space, t_map *map);
+int		free_line(char *l);
+int		check_err(int err, int space, t_map *map);
 void	update_cf(t_map *map, char c);
 void	update_map(t_map *map);
-void	free_line(char *l);
+void	free_parse(t_map *map);
 char	*trimspaces(char *s);
 
 /*

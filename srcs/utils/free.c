@@ -27,10 +27,6 @@ void	free_map(t_map *map)
 		free(map->ea);
 	if (map->s)
 		free(map->s);
-	if (map->trim)
-		free(map->trim);
-	if (map->line)
-		free(map->line);
 	while (map->maze && map->maze[++i])
 		free(map->maze[i]);
 	if (map->maze)
