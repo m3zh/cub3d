@@ -40,9 +40,9 @@ void	update_map(t_map *map)
 	map->trim = NULL;
 }
 
-void	free_line(t_map *map)
+void	free_line(char *l)
 {
-	if (map->line)
-		free(map->line);
-	map->line = NULL;
+	if (l)
+		free(l);
+	l = NULL;
 }

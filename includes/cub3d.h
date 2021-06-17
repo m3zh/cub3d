@@ -90,7 +90,7 @@ int		fill_map(t_map *map);
 int		check_line(int err, int space, t_map *map);
 void	update_cf(t_map *map, char c);
 void	update_map(t_map *map);
-void	free_line(t_map *map);
+void	free_line(char *l);
 char	*trimspaces(char *s);
 
 /*
