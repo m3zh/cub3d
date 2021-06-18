@@ -104,15 +104,15 @@ int	check_bottom_wall(t_map *map, char *l)
 	return (check_edge(i, e, map, 2));
 }
 
-int	check_map(t_map *map, int err)
+int	check_if_walled(t_map *map, char *l)
 {
-	if (err)
-		return (-1);
-	if (!BNS && map->sprites > 0)
-		return (-get_error('m'));
-	if ((!BNS && map->complete != 6) || (BNS && map->complete != 7))
-		return (-get_error('i'));
-	if (map->x < 0)
-		return (-get_error('p'));
-	return (1);
+	int	i;
+
+	i = -1;
+	while (l[++i])
+	{
+		if (l[i] == '0' && map->maze[0][i] != '1')
+			return (get_error('w'));
+	}
+	return (0);
 }

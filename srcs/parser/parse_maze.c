@@ -60,7 +60,6 @@ int	get_maze(t_map *map)
 	map->maze[map->idx] = ft_strdup(map->line);
 	map->idx++;
 	map->maze[map->idx] = 0;
-	free_line(map->trim);
 	if (!map->maze[map->idx - 1])
 		return (1);
 	return (err);
