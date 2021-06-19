@@ -56,7 +56,7 @@ int	ft_isdirection(char *li, int i)
 
 int	check_line(int err, int space, t_map *map)
 {
-	err = fill_map(map);
+	err = fill_map(map, err);
 	if (!err && space)
 		err = check_top_wall(map);
 	return (err);

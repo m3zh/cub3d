@@ -16,8 +16,8 @@ int	get_error(char c)
 {
 	if (c == 'r' || c == 't')
 		printf("Error\nInvalid file path\nRetry\n");
-	else if (c == 'l')
-		printf("Error\nError in reading config line\nRetry\n");
+	else if (c == 'l' || c == 'o' )
+		printf("Error\nAn error occurred when reading the file\nRetry\n");
 	else if (c == 'g')
 		printf("Error\nInvalid rgba configuration\nRetry\n");
 	else if (c == 'd')
@@ -32,8 +32,8 @@ int	get_error(char c)
 		printf("Error\nInvalid player position\nRetry\n");
 	else if (c == 'y')
 		printf("Error\nAn error occurred in mlx library\nRetry\n");
-	else if (c == 'o')
-		printf("Error\nAn error occurred when opening the file\nRetry\n");
+	else if (c == 'f')
+		printf("Error\nToo many or too few values in map config\nRetry\n");
 	else if (c == 'i')
 		printf("Error\nMap file empty\nRetry\n");
 	return (1);
@@ -49,33 +49,11 @@ int	free_line(char *l)
 
 int	check_err(int err, int space, t_map *map)
 {
+	if (!err && !map->complete)
+		return (get_error('i'));
+	if (!err && !map->idx)
+		return (get_error('w'));
 	if (!err && !space && check_bottom_wall(map, map->maze[map->idx - 1]))
 		return (get_error('w'));
 	return (err);
-}
-
-void	free_parse(t_map *map)
-{
-	int	i;
-
-	i = -1;
-	if (map->no)
-		free(map->no);
-	if (map->so)
-		free(map->so);
-	if (map->we)
-		free(map->we);
-	if (map->ea)
-		free(map->ea);
-	if (map->s)
-		free(map->s);
-	if (map->trim)
-		free(map->trim);
-	if (map->line)
-		free(map->line);
-	while (map->maze && map->maze[++i])
-		free(map->maze[i]);
-	if (map->maze)
-		free(map->maze);
-	free(map);
 }

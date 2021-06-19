@@ -22,7 +22,7 @@ static void	draw_mapsprite(int x, int y, t_game *game, int color)
 	{
 		dx = -1 + TILE / 3;
 		while (++dx < TILE / 3 * 2)
-			game->img.addr[game->winW * (dy + y) + (dx + x)] = color;
+			draw_pixel(game, (int)(dy + y), (int)(dx + x), color);
 	}
 }
 
@@ -40,35 +40,35 @@ static void	draw_player(t_game *game)
 		{
 			pixel = game->winW * (int)(dy + game->player.posx * TILE)
 				+ (int)(dx + game->player.posy * TILE);
-			if (!(game->img.addr[pixel] == GRAY || game->img.addr[pixel] == CYAN
-					|| !game->img.addr[pixel]))
-				game->img.addr[pixel] = 0xFFFF00;
+			if (!(game->img.addr[pixel] == GRAY
+					|| game->img.addr[pixel] == PURPLE))
+				draw_pixel(game, (int)(dy + game->player.posx * TILE),
+					(int)(dx + game->player.posy * TILE), YELLOW);
 		}
 	}	
 }
 
-static void	draw_ray(t_game *game)
+static void	draw_ray(t_game *game, double px, double py)
 {
-	double	px;
-	double	py;
 	double	dx;
 	double	dy;
 	int		pixel;
+	int		i;
 
-	px = (int)TILE * game->player.posy + game->player.inity;
-	py = (int)TILE * game->player.posx + game->player.initx;
-	dx = 1;
-	dy = 1;
-	pixel = 0;
-	while (1)
+	i = -1;
+	dx = game->player.planex;
+	dy = -game->player.planey;
+	while (++i < RAY)
 	{
+		pixel = (int)(game->winW * floor(px + dy) + floor(py + dx));
+		if (pixel < 0 || floor(px + dy) > game->winW
+			|| floor(py + dx) > game->winH
+			|| game->img.addr[pixel] == GRAY || game->img.addr[pixel] == PURPLE)
+			break ;
+		if (game->img.addr[pixel] == GREEN)
+			draw_pixel(game, (int)floor(px + dy), (int)floor(py + dx), RED);
 		dx += game->player.planex;
 		dy += -game->player.planey;
-		pixel = (int)(game->winW * floor(py + dy) + floor(px + dx));
-		if (game->img.addr[pixel] == GRAY || game->img.addr[pixel] == CYAN)
-			break ;
-		game->img.addr[game->winW * (int)floor(py + dy)
-			+ (int)floor(px + dx)] = YELLOW;
 	}
 }
 
@@ -82,7 +82,7 @@ static void	draw_tile(int x, int y, t_game *game, int color)
 	{
 		dx = -1;
 		while (++dx < TILE)
-			game->img.addr[game->winW * (dy + y) + (dx + x)] = color;
+			draw_pixel(game, (int)(dy + y), (int)(dx + x), color);
 	}
 }
 
@@ -102,10 +102,11 @@ int	draw_2dmap(t_game *game)
 			else if (game->config.maze[y][x] != ' ')
 				draw_tile(x * TILE, y * TILE, game, GREEN);
 			if (game->config.maze[y][x] == '2')
-				draw_mapsprite(x * TILE, y * TILE, game, CYAN);
+				draw_mapsprite(x * TILE, y * TILE, game, PURPLE);
 		}
 	}
 	draw_player(game);
-	draw_ray(game);
+	draw_ray(game, PLAYER / 2 + TILE * game->player.posx,
+		PLAYER / 2 + TILE * game->player.posy);
 	return (0);
 }

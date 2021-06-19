@@ -38,13 +38,15 @@
 # define SCREENW 1000
 # define SCREENH 800
 # define TILE 5
+# define RAY 20
 # define FILESIZE 1000
 
 # define BLACK -16777216
 # define GRAY 0xC0C0C0
-# define CYAN 0x7d0330
-# define YELLOW 0xFF0000
+# define PURPLE 0x7d0330
+# define RED 0xFF0000
 # define GREEN 0x037d50
+# define YELLOW 0xFFFF00
 
 # define UP_KEY 65362
 # define DOWN_KEY 65364
@@ -86,12 +88,11 @@ int		check_side_walls(t_map *map, char *l);
 int		check_if_walled(t_map *map, char *l);
 int		map_checked(t_map *map);
 int		check_map(t_map *map, int err);
-int		fill_map(t_map *map);
+int		fill_map(t_map *map, int err);
 int		check_line(int err, int space, t_map *map);
 int		free_line(char *l);
 int		check_err(int err, int space, t_map *map);
 void	update_cf(t_map *map, char c);
-void	update_map(t_map *map);
 void	free_parse(t_map *map);
 char	*trimspaces(char *s);
 
@@ -105,6 +106,7 @@ int		draw_2dmap(t_game *game);
 int		texture_to_img(t_game *game);
 int		draw_texture(t_game *game, int x, int y);
 int		get_colors(t_map *map, char c);
+void	draw_pixel(t_game *game, int y, int x, int color);
 void	draw_wall(int i, t_game *game);
 void	rotate_view(t_game *game);
 void	move_backforwards(t_game *game);

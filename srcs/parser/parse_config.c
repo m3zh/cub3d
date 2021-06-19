@@ -47,7 +47,7 @@ int	get_path(t_map *map, char *line)
 	while (line[i] && ft_isalpha(line[i]))
 		i++;
 	get_direction(map, line, start);
-	update_map(map);
+	map->complete++;
 	return (0);
 }
 
@@ -74,7 +74,7 @@ int	get_sprite_path(t_map *map, char *line)
 	while (line[i] && ft_isalpha(line[i]))
 		i++;
 	map->s = ft_strdup(&line[start]);
-	update_map(map);
+	map->complete++;
 	return (0);
 }
 
@@ -92,7 +92,7 @@ int	get_rgb_value(t_map *map, int *s, char *line)
 	{
 		i = skip_space(line, i);
 		if (!(ft_isdigit(line[i]) && ++j < 3))
-			return (get_error('x'));
+			return (get_error('g'));
 		s[j] = ft_atoi(&line[i]);
 		if (s[j] < 0 || s[j] > 255)
 			return (get_error('g'));
@@ -103,6 +103,6 @@ int	get_rgb_value(t_map *map, int *s, char *line)
 	}
 	if (j != 2)
 		return (get_error('g'));
-	update_map(map);
+	map->complete++;
 	return (0);
 }

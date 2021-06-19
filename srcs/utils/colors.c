@@ -12,6 +12,13 @@
 
 #include "../../includes/cub3d.h"
 
+void	draw_pixel(t_game *game, int y, int x, int color)
+{
+	if (x < 0 || x > game->winW || y < 0 || y > game->winH)
+		return ;
+	game->img.addr[game->winW * y + x] = color;
+}
+
 int	get_colors(t_map *map, char c)
 {
 	if (c == 'c')
