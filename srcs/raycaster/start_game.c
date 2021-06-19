@@ -48,7 +48,7 @@ static int	game_loop(t_game *game)
 		mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 		move_backforwards(game);
 		move_leftright(game);
-		rotate_view(game);
+		rotate_view(game, game->player.initx, game->player.planex);
 		swap_frame(game);
 		return (0);
 	}

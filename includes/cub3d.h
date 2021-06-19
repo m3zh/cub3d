@@ -108,7 +108,7 @@ int		draw_texture(t_game *game, int x, int y);
 int		get_colors(t_map *map, char c);
 void	draw_pixel(t_game *game, int y, int x, int color);
 void	draw_wall(int i, t_game *game);
-void	rotate_view(t_game *game);
+void	rotate_view(t_game *game, double dx, double px);
 void	move_backforwards(t_game *game);
 void	move_leftright(t_game *game);
 void	draw_3d(t_game *game);
