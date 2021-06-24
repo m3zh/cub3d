@@ -15,7 +15,7 @@
 int	check_cf(char *line)
 {
 	return ((line[0] == 'F' || line[0] == 'C')
-		&& (line[1] == ' ' || ft_isdigit(line[1])));
+		&& ft_isspace(line[1]));
 }
 
 void	update_cf(t_map *map, char c)
@@ -31,4 +31,33 @@ int	skip_space(char *l, int i)
 	while (l[i] && ft_isspace(l[i]))
 		i++;
 	return (i);
+}
+
+int	check_spaces(int pos, t_map *map, char *l)
+{
+	if (l[pos - 1] != '1')
+		return (-1);
+	while (l[pos] && ft_isspace(l[pos]) && not_walled(pos, map))
+		pos++;
+	if (l[pos] && l[pos] != '1')
+		return (-1);
+	if (l[pos])
+		return (pos + 1);
+	return (pos);
+}
+
+int	check_emptyline(char *line)
+{
+	char	*r;
+
+	r = trimspaces(line);
+	if (!r)
+		return (-1);
+	if (ft_strcmp(r, ""))
+	{
+		free(r);
+		return (0);
+	}
+	free(r);
+	return (1);
 }

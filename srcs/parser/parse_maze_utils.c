@@ -16,28 +16,21 @@ int	not_walled(int pos, t_map *map)
 {
 	if (pos <= map->end_wall)
 		return (map->maze[map->idx - 1][pos] == '1'
-			|| map->maze[map->idx - 1][pos] == ' ');
+			|| ft_isspace(map->maze[map->idx - 1][pos]));
 	return (1);
 }
 
-int	check_spaces(int pos, t_map *map, char *l)
+static int	not_map(int y, t_map *map)
 {
-	if (l[pos - 1] != '1')
-		return (-1);
-	while (l[pos] && l[pos] == ' ' && not_walled(pos, map))
-		pos++;
-	if (l[pos] && l[pos] != '1')
-		return (-1);
-	if (l[pos])
-		return (pos + 1);
-	return (pos);
+	return (y > (int)ft_strlen(map->maze[map->idx - 1]));
 }
 
 int	check_maze(t_map *map, char *l, int y)
 {
 	if (l[y] == '2')
 		map->sprites++;
-	if (ft_ismaze(l[y]) && map->maze[map->idx - 1][y] == ' ')
+	if (ft_ismaze(l[y]) && (not_map(y, map)
+			|| ft_isspace(map->maze[map->idx - 1][y])))
 		return (-1);
 	return (y + 1);
 }
