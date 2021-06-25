@@ -78,7 +78,9 @@ static int	read_line(int fd, int gnl, int err, t_map *map)
 		else if (map->line && ft_strcmp(map->line, ""))
 		{
 			err = check_line(err, space, map);
-			space = 0;
+			space = check_emptyline(map->line, map);
+			if (space < 0)
+				return (1);
 		}
 		else if (gnl && map->line && map->idx > 0 && !ft_strcmp(map->line, ""))
 		{

@@ -23,15 +23,15 @@ char	*trimspaces(char *s)
 		return (NULL);
 	i = 0;
 	k = 0;
-	len = (int)ft_strlen(s);
+	len = (int)ft_strlen(s) - 1;
 	while (s[i] && ft_isspace(s[i]))
 		i++;
 	while (len > i && s[len] && ft_isspace(s[len]))
 		len--;
-	r = (char *)malloc(sizeof(char) * (len - i + 1));
+	r = (char *)malloc(sizeof(char) * (len - i + 2));
 	if (!r)
 		return (NULL);
-	while (i < len)
+	while (i <= len)
 		r[k++] = s[i++];
 	r[k] = '\0';
 	return (r);
@@ -57,7 +57,7 @@ int	ft_isdirection(char *li, int i)
 int	check_line(int err, int space, t_map *map)
 {
 	err = fill_map(map, err);
-	if (!err && space)
+	if (!err && space && map->idx > 0)
 		err = check_top_wall(map);
 	return (err);
 }

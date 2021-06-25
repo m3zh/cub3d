@@ -75,7 +75,7 @@ int	free_window(t_game *game)
 	int	i;
 
 	i = -1;
-	printf("Texture file failed to open\nRetry");
+	printf("Error\nTexture file failed to open\nRetry\n");
 	while (++i < 4)
 		if (game->tex[i].img)
 			mlx_destroy_image(game->mlx, game->tex[i].img);
@@ -91,7 +91,7 @@ int	free_dataimg(t_game *game)
 	int	i;
 
 	i = -1;
-	printf("Image data failed to initialise\nRetry");
+	printf("Error\nImage data failed to initialise\nRetry\n");
 	while (++i < 4)
 		if (game->tex[i].img)
 			mlx_destroy_image(game->mlx, game->tex[i].img);

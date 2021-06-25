@@ -6,14 +6,19 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 16:40:08 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/06/11 07:31:36 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/06/21 07:29:40 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void	get_direction(t_map *map, char *li, int i)
+static int	get_direction(t_map *map, char *li, int i)
 {
+	char	*r;
+
+	r = trimspaces(&li[i]);
+	if (!r)
+		return (0);
 	if (li[0] == 'N')
 		map->no = ft_strdup(&li[i]);
 	else if (li[0] == 'S')
@@ -22,6 +27,8 @@ void	get_direction(t_map *map, char *li, int i)
 		map->we = ft_strdup(&li[i]);
 	else if (li[0] == 'E')
 		map->ea = ft_strdup(&li[i]);
+	free(r);
+	return (1);
 }
 
 int	get_path(t_map *map, char *line)
@@ -31,7 +38,7 @@ int	get_path(t_map *map, char *line)
 
 	i = 0;
 	start = 0;
-	if (!(ft_isdirection(line, i)))
+	if (!(ft_isdirection(line, i) && ft_isspace(line[2])))
 		return (get_error('d'));
 	i += 2;
 	while (ft_isspace(line[i]))
@@ -40,13 +47,10 @@ int	get_path(t_map *map, char *line)
 		return (get_error('t'));
 	start = i;
 	i += 2;
-	while (line[i] && ft_isalpha(line[i]))
+	while (line[i] && (ft_isalpha(line[i]) || line[i] == '/'))
 		i++;
-	if (line[i] == '/')
-		i++;
-	while (line[i] && ft_isalpha(line[i]))
-		i++;
-	get_direction(map, line, start);
+	if (!get_direction(map, line, start))
+		return (1);
 	map->complete++;
 	return (0);
 }
@@ -55,10 +59,11 @@ int	get_sprite_path(t_map *map, char *line)
 {
 	int		i;
 	int		start;
+	char	*r;
 
 	i = 0;
 	start = 0;
-	if (!(line[i] == 'S' && (line[i + 1] == ' ' || ft_isdigit(line[i + 1]))))
+	if (!(line[i] == 'S' && ft_isspace(line[i + 1])))
 		return (get_error('d'));
 	i += 2;
 	while (ft_isspace(line[i]))
@@ -67,14 +72,14 @@ int	get_sprite_path(t_map *map, char *line)
 		return (get_error('r'));
 	start = i;
 	i += 2;
-	while (line[i] && ft_isalpha(line[i]))
+	while (line[i] && (ft_isalpha(line[i]) || line[i] == '/'))
 		i++;
-	if (line[i] == '/')
-		i++;
-	while (line[i] && ft_isalpha(line[i]))
-		i++;
-	map->s = ft_strdup(&line[start]);
+	r = trimspaces(&line[start]);
+	if (!r)
+		return (1);
+	map->s = ft_strdup(r);
 	map->complete++;
+	free(r);
 	return (0);
 }
 

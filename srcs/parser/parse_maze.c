@@ -25,7 +25,7 @@ int	get_endwall(t_map *map, char *l)
 	int	e;
 
 	e = ft_strlen(l) - 1;
-	while (l[e] && l[e] == ' ')
+	while (l[e] && ft_isspace(l[e]))
 		e--;
 	if (l[e] != '1')
 		return (get_error('w'));

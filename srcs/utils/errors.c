@@ -15,7 +15,7 @@
 int	get_error(char c)
 {
 	if (c == 'r' || c == 't')
-		printf("Error\nInvalid file path\nRetry\n");
+		printf("Error\nInvalid file path or texture\nRetry\n");
 	else if (c == 'l' || c == 'o' )
 		printf("Error\nAn error occurred when reading the file\nRetry\n");
 	else if (c == 'g')
@@ -47,12 +47,22 @@ int	free_line(char *l)
 	return (0);
 }
 
+static int	error_textures(t_map *map)
+{
+	return (!ft_strcmp(map->no, map->so)
+		|| !ft_strcmp(map->no, map->we) || !ft_strcmp(map->no, map->ea)
+		|| !ft_strcmp(map->so, map->ea) || !ft_strcmp(map->so, map->we)
+		|| !ft_strcmp(map->ea, map->we));
+}
+
 int	check_err(int err, int space, t_map *map)
 {
 	if (!err && !map->complete)
 		return (get_error('i'));
 	if (!err && !map->idx)
 		return (get_error('w'));
+	if (!err && error_textures(map))
+		return (get_error('t'));
 	if (!err && !space && check_bottom_wall(map, map->maze[map->idx - 1]))
 		return (get_error('w'));
 	return (err);
