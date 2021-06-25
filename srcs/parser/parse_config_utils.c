@@ -46,19 +46,12 @@ int	check_spaces(int pos, t_map *map, char *l)
 	return (pos);
 }
 
-<<<<<<< HEAD
 int	check_emptyline(char *line, t_map *map)
 {
 	char	*r;
 
 	if (map->idx == 0)
 		return (0);
-=======
-int	check_emptyline(char *line)
-{
-	char	*r;
-
->>>>>>> e38a0048dc00b7274a88b6479e419cb84b8cc168
 	r = trimspaces(line);
 	if (!r)
 		return (-1);
