@@ -54,10 +54,7 @@ int	ft_isdirection(char *li, int i)
 		|| (li[i] == 'E' && li[i + 1] == 'A'));
 }
 
-int	check_line(int err, int space, t_map *map)
+int	ft_issprite(char a, char b)
 {
-	err = fill_map(map, err);
-	if (!err && space && map->idx > 0)
-		err = check_top_wall(map);
-	return (err);
+	return (a == 'S' && ft_isspace(b));
 }

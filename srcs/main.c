@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 12:13:37 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/06/06 16:22:38 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/06/25 21:24:53 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	main(int ac, char **av)
 
 {
 	if (ac != 2)
-		printf("Invalid number of arguments.\nRetry.");
+		printf("Error\nInvalid number of arguments.\n");
 	else
 		boot_cub3d(av);
 	return (0);

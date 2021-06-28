@@ -17,19 +17,19 @@ void	move_leftright(t_game *game)
 	if (game->move.left)
 	{
 		if (game->config.maze[(int)(game->player.posx - game->player.inity
-				* SPEED + 0.1)][(int)game->player.posy] == '0')
+				* (SPEED + 0.1))][(int)game->player.posy] == '0')
 			game->player.posx -= game->player.inity * SPEED;
 		if (game->config.maze[(int)game->player.posx][(int)(game->player.posy
-			+ game->player.initx * SPEED + 0.1)] == '0')
+			+ game->player.initx * (SPEED + 0.1))] == '0')
 			game->player.posy += game->player.initx * SPEED;
 	}
 	if (game->move.right)
 	{
 		if (game->config.maze[(int)(game->player.posx + game->player.inity
-				* SPEED + 0.1)][(int)game->player.posy] == '0')
+				* (SPEED + 0.1))][(int)game->player.posy] == '0')
 			game->player.posx += game->player.inity * SPEED;
 		if (game->config.maze[(int)game->player.posx][(int)(game->player.posy
-			- game->player.initx * SPEED + 0.1)] == '0')
+			- game->player.initx * (SPEED + 0.1))] == '0')
 			game->player.posy -= game->player.initx * SPEED;
 	}
 }

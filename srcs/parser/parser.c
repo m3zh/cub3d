@@ -36,7 +36,7 @@ int	fill_map(t_map *map, int err)
 			err = get_path(map, map->trim);
 		else if (map->trim[0] == 'E' && !map->ea)
 			err = get_path(map, map->trim);
-		else if (BNS && map->trim[0] == 'S' && map->trim[1] != 'O' && !map->s)
+		else if (BNS && ft_issprite(map->trim[0], map->trim[1]) && !map->s)
 			err = get_sprite_path(map, map->trim);
 		else if (map->trim[0] == 'C' && !map->c_check)
 			err = get_rgb_value(map, map->c, map->trim);
@@ -80,7 +80,7 @@ static int	read_line(int fd, int gnl, int err, t_map *map)
 			err = check_line(err, space, map);
 			space = check_emptyline(map->line, map);
 			if (space < 0)
-				return (1);
+				err = 1;
 		}
 		else if (gnl && map->line && map->idx > 0 && !ft_strcmp(map->line, ""))
 		{

@@ -75,6 +75,7 @@ int		get_playerpos(t_map *map, int y);
 int		ft_ismaze(char c);
 int		ft_isplayerpos(char c);
 int		ft_isdirection(char *li, int i);
+int		ft_issprite(char a, char b);
 int		skip_space(char *l, int i);
 int		check_cf(char *line);
 int		not_walled(int pos, t_map *map);
@@ -92,7 +93,6 @@ int		fill_map(t_map *map, int err);
 int		check_line(int err, int space, t_map *map);
 int		free_line(char *l);
 int		check_err(int err, int space, t_map *map);
-void	update_cf(t_map *map, char c);
 void	free_parse(t_map *map);
 char	*trimspaces(char *s);
 

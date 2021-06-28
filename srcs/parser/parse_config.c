@@ -12,6 +12,14 @@
 
 #include "../../includes/cub3d.h"
 
+static void	update_cf(t_map *map, char c)
+{
+	if (c == 'F')
+		map->f_check = 1;
+	else if (c == 'C')
+		map->c_check = 1;
+}
+
 static int	get_direction(t_map *map, char *li, int i)
 {
 	char	*r;

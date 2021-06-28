@@ -18,14 +18,6 @@ int	check_cf(char *line)
 		&& ft_isspace(line[1]));
 }
 
-void	update_cf(t_map *map, char c)
-{
-	if (c == 'F')
-		map->f_check = 1;
-	else if (c == 'C')
-		map->c_check = 1;
-}
-
 int	skip_space(char *l, int i)
 {
 	while (l[i] && ft_isspace(l[i]))
@@ -62,4 +54,12 @@ int	check_emptyline(char *line, t_map *map)
 	}
 	free(r);
 	return (1);
+}
+
+int	check_line(int err, int space, t_map *map)
+{
+	err = fill_map(map, err);
+	if (!err && space && map->idx > 0)
+		err = check_top_wall(map);
+	return (err);
 }
