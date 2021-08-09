@@ -20,6 +20,11 @@ static void	initialise_map(t_map *map)
 	map->ea = 0;
 	map->s = 0;
 	map->maze = (char **)malloc(sizeof(char *) * FILESIZE);
+	if (!map->maze)
+	{
+		free (map);
+		exit (1);
+	}
 	*map->maze = NULL;
 	map->line = 0;
 	map->trim = 0;
@@ -73,8 +78,7 @@ int	main(int ac, char **av)
 
 {
 	if (ac != 2)
-		printf("Error\nInvalid number of arguments.\n");
-	else
-		boot_cub3d(av);
+		return (printf("Error\nInvalid number of arguments.\n"));
+	boot_cub3d(av);
 	return (0);
 }
